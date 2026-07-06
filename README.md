@@ -78,7 +78,7 @@ Chacune force l'agent à utiliser une description précise du catalogue
 3. [docs/03-agent-catalog-interaction.md](docs/03-agent-catalog-interaction.md) — **comment l'agent lit le catalogue**
 4. [docs/04-poc-guide.md](docs/04-poc-guide.md) — pas-à-pas + **quelles captures d'écran prendre**
 
-> ⚠️ **Note captures d'écran** : ce repo a été généré hors d'un environnement GCP,
-> les captures « live » sont donc à réaliser par toi en suivant
-> [docs/04-poc-guide.md](docs/04-poc-guide.md) (il indique exactement quoi capturer).
-> Une **maquette illustrative** de l'agent est fournie dans `assets/`.
+> ✅ **POC exécuté en vrai** le 7 juillet 2026 sur le projet `quittes-83211`
+> (BigQuery + Dataplex + agent Gemini). Résultats réels — SQL généré par l'agent,
+> réponse, scans qualité « Passed » — dans [docs/RUN-REEL-2026-07-07.md](docs/RUN-REEL-2026-07-07.md).
+> Le guide [docs/04-poc-guide.md](docs/04-poc-guide.md) indique quelles captures prendre.
