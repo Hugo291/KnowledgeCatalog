@@ -48,8 +48,8 @@
 
 | Étape POC | Fichier | Plan |
 |---|---|---|
-| Schéma en étoile + données | `sql/01`, `sql/02` | Production |
-| Descriptions (catalogue) | `sql/03` | Gouvernance |
+| Schéma en étoile + descriptions (catalogue) | `sql/01` | Production + Gouvernance |
+| Données de démo | `sql/02` | Production |
 | Lineage + profiling + qualité | `scripts/02_dataplex_scans.sh` | Gouvernance |
 | Lecture catalogue → contexte | `agent/build_context.py` | Consommation |
 | Création de l'agent | `agent/create_agent.py` | Consommation |

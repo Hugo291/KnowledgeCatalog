@@ -17,8 +17,7 @@ run_sql () {
     | bq query --use_legacy_sql=false --project_id="$PROJECT_ID"
 }
 
-echo "▶ 1/3 Schéma en étoile…"      ; run_sql sql/01_create_star_schema.sql
-echo "▶ 2/3 Données de démo…"       ; run_sql sql/02_load_sample_data.sql
-echo "▶ 3/3 Descriptions (catalogue)…" ; run_sql sql/03_descriptions.sql
+echo "▶ 1/2 Schéma en étoile + descriptions (catalogue)…" ; run_sql sql/01_create_star_schema.sql
+echo "▶ 2/2 Données de démo…"                             ; run_sql sql/02_load_sample_data.sql
 
 echo "✅ BigQuery prêt. Vérifie : https://console.cloud.google.com/bigquery?project=$PROJECT_ID"
