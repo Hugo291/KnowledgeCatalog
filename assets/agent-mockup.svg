@@ -1,0 +1,43 @@
+<svg viewBox="0 0 900 560" xmlns="http://www.w3.org/2000/svg" font-family="'SF Mono',Menlo,Consolas,monospace">
+  <rect x="0" y="0" width="900" height="560" rx="12" fill="#1e1e2e"/>
+  <!-- title bar -->
+  <rect x="0" y="0" width="900" height="38" rx="12" fill="#181825"/>
+  <rect x="0" y="20" width="900" height="18" fill="#181825"/>
+  <circle cx="24" cy="19" r="6" fill="#ff5f56"/>
+  <circle cx="46" cy="19" r="6" fill="#ffbd2e"/>
+  <circle cx="68" cy="19" r="6" fill="#27c93f"/>
+  <text x="450" y="24" text-anchor="middle" font-size="12.5" fill="#a6adc8">agent — python ask.py  (maquette illustrative)</text>
+
+  <g font-size="13.5">
+    <text x="24" y="72" fill="#89b4fa">$ python ask.py <tspan fill="#f9e2af">"Quel est le CA des clients actifs en 2025 ?"</tspan></text>
+
+    <text x="24" y="104" fill="#cdd6f4">❓ Quel est le CA des clients actifs en 2025 ?</text>
+
+    <text x="24" y="140" fill="#6c7086">--- SQL généré par l'agent ---</text>
+    <text x="24" y="164" fill="#a6e3a1">SELECT SUM(f.mnt_ht) AS chiffre_affaires</text>
+    <text x="24" y="184" fill="#a6e3a1">FROM  `retail_poc.fact_ventes` f</text>
+    <text x="24" y="204" fill="#a6e3a1">JOIN  `retail_poc.dim_client` c USING (client_key)</text>
+    <text x="24" y="224" fill="#a6e3a1">JOIN  `retail_poc.dim_date`   d USING (date_key)</text>
+    <text x="24" y="244" fill="#a6e3a1">WHERE c.statut = 'A'        <tspan fill="#6c7086">-- client actif (catalogue)</tspan></text>
+    <text x="24" y="264" fill="#a6e3a1">  AND d.annee = 2025;</text>
+
+    <text x="24" y="300" fill="#cdd6f4">💬 En 2025, le chiffre d'affaires des clients actifs s'élève à</text>
+    <text x="24" y="320" fill="#cdd6f4">   <tspan font-weight="700" fill="#fab387">1 247 830,40 €</tspan>, soit 78 % du CA total.</text>
+
+    <text x="24" y="356" fill="#6c7086">┌──────────────┬──────────────────┐</text>
+    <text x="24" y="374" fill="#6c7086">│ segment      │ chiffre_affaires │</text>
+    <text x="24" y="392" fill="#6c7086">├──────────────┼──────────────────┤</text>
+    <text x="24" y="410" fill="#bac2de">│ Grand Compte │       612 400,10 │</text>
+    <text x="24" y="428" fill="#bac2de">│ PME          │       451 220,05 │</text>
+    <text x="24" y="446" fill="#bac2de">│ Particulier  │       184 210,25 │</text>
+    <text x="24" y="464" fill="#6c7086">└──────────────┴──────────────────┘</text>
+  </g>
+
+  <!-- annotation -->
+  <rect x="470" y="120" width="406" height="86" rx="8" fill="#313244" stroke="#f9e2af" stroke-width="1.5"/>
+  <text x="486" y="146" font-size="12.5" fill="#f9e2af" font-family="'Segoe UI',sans-serif" font-weight="700">Pourquoi ce SQL est juste ?</text>
+  <text x="486" y="168" font-size="12" fill="#cdd6f4" font-family="'Segoe UI',sans-serif">• CA = SUM(mnt_ht) → description de la colonne</text>
+  <text x="486" y="188" font-size="12" fill="#cdd6f4" font-family="'Segoe UI',sans-serif">• statut='A' → description « actif = A » du catalogue</text>
+
+  <text x="24" y="500" font-size="11.5" fill="#6c7086" font-family="'Segoe UI',sans-serif">Maquette illustrative — les vraies captures se prennent en suivant docs/04-poc-guide.md sur ton projet GCP.</text>
+</svg>

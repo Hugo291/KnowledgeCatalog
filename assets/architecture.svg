@@ -1,0 +1,88 @@
+<svg viewBox="0 0 980 780" xmlns="http://www.w3.org/2000/svg" font-family="'Segoe UI',Helvetica,Arial,sans-serif">
+  <defs>
+    <marker id="arw" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto">
+      <path d="M0,0 L8,3 L0,6 Z" fill="#5f6368"/>
+    </marker>
+    <style>
+      .box{rx:14;stroke-width:2;}
+      .title{font-size:15px;font-weight:700;}
+      .sub{font-size:12px;fill:#5f6368;}
+      .lbl{font-size:12px;fill:#3c4043;}
+      .arrowlbl{font-size:11.5px;fill:#5f6368;font-style:italic;}
+    </style>
+  </defs>
+
+  <text x="490" y="34" text-anchor="middle" font-size="20" font-weight="800" fill="#202124">Du schéma en étoile à l'agent conversationnel</text>
+  <text x="490" y="56" text-anchor="middle" class="sub">BigQuery ↔ Dataplex Universal Catalog → Conversational Analytics API</text>
+
+  <!-- BI -->
+  <rect x="360" y="78" width="260" height="58" rx="14" fill="#e8f0fe" stroke="#4285F4"/>
+  <text x="490" y="104" text-anchor="middle" class="title" fill="#1a73e8">Projet BI</text>
+  <text x="490" y="123" text-anchor="middle" class="sub">dbt / Dataform / SQL — crée les tables</text>
+
+  <!-- arrow BI -> BigQuery -->
+  <path d="M420,136 C360,170 300,175 270,196" fill="none" stroke="#5f6368" stroke-width="2" marker-end="url(#arw)"/>
+  <text x="300" y="168" class="arrowlbl">CREATE TABLE … AS SELECT</text>
+
+  <!-- BigQuery box -->
+  <rect x="60" y="200" width="380" height="220" rx="14" fill="#ffffff" stroke="#34A853" stroke-width="2"/>
+  <text x="80" y="228" class="title" fill="#137333">BigQuery — schéma en étoile</text>
+  <!-- star schema mini -->
+  <circle cx="250" cy="330" r="34" fill="#ceead6" stroke="#34A853"/>
+  <text x="250" y="327" text-anchor="middle" font-size="11" font-weight="700" fill="#137333">fact_</text>
+  <text x="250" y="341" text-anchor="middle" font-size="11" font-weight="700" fill="#137333">ventes</text>
+  <g font-size="10.5" fill="#3c4043">
+    <circle cx="120" cy="300" r="22" fill="#f1f3f4" stroke="#9aa0a6"/><text x="120" y="303" text-anchor="middle">dim_date</text>
+    <circle cx="120" cy="370" r="22" fill="#f1f3f4" stroke="#9aa0a6"/><text x="120" y="373" text-anchor="middle">dim_client</text>
+    <circle cx="380" cy="300" r="22" fill="#f1f3f4" stroke="#9aa0a6"/><text x="380" y="303" text-anchor="middle">dim_produit</text>
+    <circle cx="380" cy="370" r="22" fill="#f1f3f4" stroke="#9aa0a6"/><text x="380" y="373" text-anchor="middle">dim_magasin</text>
+  </g>
+  <line x1="142" y1="308" x2="220" y2="324" stroke="#9aa0a6"/>
+  <line x1="142" y1="362" x2="220" y2="338" stroke="#9aa0a6"/>
+  <line x1="358" y1="308" x2="282" y2="324" stroke="#9aa0a6"/>
+  <line x1="358" y1="362" x2="282" y2="338" stroke="#9aa0a6"/>
+  <text x="250" y="400" text-anchor="middle" class="sub">+ descriptions sur chaque table/colonne</text>
+
+  <!-- Dataplex box -->
+  <rect x="560" y="200" width="360" height="220" rx="14" fill="#fef7e0" stroke="#F9AB00" stroke-width="2"/>
+  <text x="580" y="228" class="title" fill="#b06000">Dataplex Universal Catalog</text>
+  <g font-size="12.5" fill="#3c4043">
+    <text x="582" y="256">📝 descriptions (générables par Gemini)</text>
+    <text x="582" y="284">🔗 lineage — auto (« doc du code »)</text>
+    <text x="582" y="312">📊 profiling — valeurs réelles</text>
+    <text x="582" y="340">✅ qualité (AutoDQ)</text>
+    <text x="582" y="368">📖 glossaire métier</text>
+  </g>
+  <text x="740" y="402" text-anchor="middle" class="sub">plan de gouvernance / édition</text>
+
+  <!-- double arrow BQ <-> Dataplex -->
+  <path d="M446,290 L554,290" fill="none" stroke="#5f6368" stroke-width="2" marker-end="url(#arw)"/>
+  <path d="M554,320 L446,320" fill="none" stroke="#5f6368" stroke-width="2" marker-end="url(#arw)"/>
+  <text x="500" y="282" text-anchor="middle" class="arrowlbl">harvest</text>
+  <text x="500" y="338" text-anchor="middle" class="arrowlbl">write-back</text>
+
+  <!-- Agent box -->
+  <rect x="250" y="500" width="480" height="230" rx="14" fill="#f3e8fd" stroke="#A142F4" stroke-width="2"/>
+  <text x="490" y="528" text-anchor="middle" class="title" fill="#7627bb">Agent conversationnel (Conversational Analytics API)</text>
+  <!-- question bubble -->
+  <rect x="272" y="546" width="436" height="40" rx="10" fill="#ffffff" stroke="#d0bcff"/>
+  <text x="288" y="571" font-size="13" fill="#202124">❓ « Quel est le CA des clients actifs en 2025 ? »</text>
+  <!-- sql bubble -->
+  <rect x="272" y="596" width="436" height="70" rx="10" fill="#202124"/>
+  <text x="288" y="618" font-size="12" fill="#8ab4f8" font-family="monospace">SELECT SUM(mnt_ht) FROM fact_ventes f</text>
+  <text x="288" y="635" font-size="12" fill="#8ab4f8" font-family="monospace">JOIN dim_client c USING(client_key)</text>
+  <text x="288" y="652" font-size="12" fill="#8ab4f8" font-family="monospace">WHERE c.statut='A' AND annee=2025</text>
+  <!-- answer -->
+  <rect x="272" y="676" width="436" height="38" rx="10" fill="#ffffff" stroke="#d0bcff"/>
+  <text x="288" y="700" font-size="13" fill="#202124">💬 « Le CA des clients actifs en 2025 est de 1 24… € »</text>
+
+  <!-- arrows to agent -->
+  <path d="M230,420 C230,470 330,480 380,498" fill="none" stroke="#5f6368" stroke-width="2" marker-end="url(#arw)"/>
+  <text x="150" y="470" class="arrowlbl">schéma + descriptions</text>
+  <text x="150" y="486" class="arrowlbl">(lus à la question)</text>
+  <path d="M740,420 C740,470 640,480 600,498" fill="none" stroke="#5f6368" stroke-width="2" marker-end="url(#arw)"/>
+  <text x="700" y="470" class="arrowlbl">glossaire, valeurs</text>
+  <text x="700" y="486" class="arrowlbl">(contexte)</text>
+
+  <text x="490" y="762" text-anchor="middle" class="sub">Le canal fiable = la description sur la colonne BigQuery. Le reste (glossaire, valeurs) est recopié dans le contexte de l'agent.</text>
+</svg>

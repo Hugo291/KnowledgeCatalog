@@ -1,0 +1,27 @@
+# Spécification de qualité de données (Dataplex AutoDQ) pour fact_ventes.
+# Utilisé par scripts/02_dataplex_scans.sh
+# Doc: https://cloud.google.com/dataplex/docs/use-auto-data-quality
+rules:
+  - column: vente_id
+    dimension: UNIQUENESS
+    uniquenessExpectation: {}
+
+  - column: vente_id
+    dimension: COMPLETENESS
+    nonNullExpectation: {}
+
+  - column: mnt_ht
+    dimension: VALIDITY
+    rangeExpectation:
+      minValue: "0"          # le CA d'une ligne ne peut pas être négatif
+
+  - column: remise_pct
+    dimension: VALIDITY
+    rangeExpectation:
+      minValue: "0"
+      maxValue: "1"          # remise exprimée en fraction
+
+  - column: quantite
+    dimension: VALIDITY
+    rangeExpectation:
+      minValue: "1"

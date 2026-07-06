@@ -1,0 +1,13 @@
+# Secrets / config locale
+.env
+
+# Python
+agent/.venv/
+**/__pycache__/
+*.pyc
+
+# Contexte généré par build_context.py
+agent/context.json
+
+# macOS
+.DS_Store

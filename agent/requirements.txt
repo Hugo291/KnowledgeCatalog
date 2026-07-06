@@ -1,0 +1,11 @@
+# Client BigQuery : lit le schéma + les descriptions (les métadonnées du catalogue)
+google-cloud-bigquery>=3.25
+
+# Conversational Analytics API (Gemini Data Analytics) : l'agent conversationnel
+google-cloud-geminidataanalytics>=0.1
+
+# (Optionnel) Dataplex : lire les résultats de profiling / le glossaire
+google-cloud-dataplex>=2.0
+
+# Chargement du .env
+python-dotenv>=1.0
