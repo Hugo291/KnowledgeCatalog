@@ -41,7 +41,7 @@ SELECT
   ['Informatique','Informatique','Mobilier','Mobilier','Fournitures','Fournitures','Informatique','Informatique'][OFFSET(MOD(k, 8))] AS categorie,
   ['Portables','Périphériques','Sièges','Plans de travail','Écriture','Papier','Audio','Saisie'][OFFSET(MOD(k, 8))] AS sous_categorie,
   ['Dell','LG','Steelcase','IKEA','Bic','Clairefontaine','Sony','Logitech'][OFFSET(MOD(k, 8))] AS marque,
-  ROUND(10 + MOD(k * 37, 900), 2)                             AS prix_unitaire_ref
+  CAST(ROUND(10 + MOD(k * 37, 900), 2) AS NUMERIC)           AS prix_unitaire_ref
 FROM UNNEST(GENERATE_ARRAY(1, 80)) AS k;
 
 -- ------- dim_magasin ---------------------------------------------------
@@ -76,9 +76,9 @@ SELECT
   produit_key,
   magasin_key,
   quantite,
-  ROUND(p.prix_unitaire_ref * quantite * (1 - remise), 2)     AS mnt_ht,
-  remise                                                      AS remise_pct,
-  ROUND(p.prix_unitaire_ref * quantite * (1 - remise) * 0.20, 2) AS mnt_tva,
-  ROUND(p.prix_unitaire_ref * quantite * (1 - remise) * 1.20, 2) AS mnt_ttc
+  CAST(ROUND(p.prix_unitaire_ref * quantite * (1 - remise), 2) AS NUMERIC)     AS mnt_ht,
+  CAST(remise AS NUMERIC)                                      AS remise_pct,
+  CAST(ROUND(p.prix_unitaire_ref * quantite * (1 - remise) * 0.20, 2) AS NUMERIC) AS mnt_tva,
+  CAST(ROUND(p.prix_unitaire_ref * quantite * (1 - remise) * 1.20, 2) AS NUMERIC) AS mnt_ttc
 FROM gen
 JOIN `${PROJECT_ID}.${DATASET}.dim_produit` p USING (produit_key);
