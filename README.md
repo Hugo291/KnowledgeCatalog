@@ -100,7 +100,7 @@ Chacune force l'agent à utiliser une description précise du catalogue
 2. [docs/02-architecture.md](docs/02-architecture.md) — le flux de bout en bout
 3. [docs/03-agent-catalog-interaction.md](docs/03-agent-catalog-interaction.md) — **comment l'agent lit le catalogue**
 4. [docs/RUN-REEL-2026-07-07.md](docs/RUN-REEL-2026-07-07.md) — le run réel, pièges compris
-5. [docs/04-poc-guide.md](docs/04-poc-guide.md) — quelles captures d'écran prendre
+5. [docs/04-poc-guide.md](docs/04-poc-guide.md) — **galerie** des captures réelles du POC
 
 > ✅ **POC exécuté en vrai** le 7 juillet 2026 sur le projet `quittes-83211`
 > (BigQuery + Dataplex + agent Gemini). Résultats réels — SQL généré par l'agent,

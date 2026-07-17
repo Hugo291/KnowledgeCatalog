@@ -102,19 +102,62 @@ Dans son raisonnement, l'agent a écrit (verbatim) :
 
 **Rien de tout ça n'est deviné.** Tout vient du catalogue.
 
-## Vérifier
+## Vérifier — le test A/B « sans catalogue »
 
-Le meilleur test — le **avant / après** :
+Le seul test qui prouve quelque chose : **mêmes données, catalogue en moins**.
 
-```sql
--- 1) Une copie SANS descriptions (CTAS ne copie pas les descriptions)
-CREATE TABLE `ton-projet.retail_poc.fact_ventes_nue` AS
-SELECT * FROM `ton-projet.retail_poc.fact_ventes`;
+```bash
+# 1) Des copies SANS descriptions (un CTAS ne copie PAS les descriptions)
+bash -c 'set -a; source ../.env; set +a; \
+  sed -e "s/\${PROJECT_ID}/$PROJECT_ID/g" -e "s/\${DATASET}/$DATASET/g" \
+  ../sql/04_tables_sans_descriptions.sql | bq query --use_legacy_sql=false'
+
+# 2) La même question, sur les tables nues, sans aucune règle métier
+python demo_sans_catalogue.py
 ```
 
-Pointe un agent inline sur `fact_ventes_nue` et redemande le CA : il hésite, prend la
-mauvaise colonne, ou demande des précisions. **Mêmes données, la seule différence est
-le catalogue.** C'est l'argument qui convainc en réunion.
+La requête de vérification de `sql/04` le confirme : toutes les descriptions des tables
+`*_nue` sont **`NULL`**.
+
+### Le résultat réel — attention, il surprend
+
+![L'agent sans catalogue : deux chiffres et une hypothèse](../../assets/screenshots/08-agent-sans-catalogue.png)
+
+**L'agent sans catalogue ne s'est PAS planté.** Il a même retrouvé le bon montant. Mais
+regarde *comment* :
+
+| | **Avec** catalogue | **Sans** catalogue |
+|---|---|---|
+| Réponse | **un** chiffre : 2 864 226,45 € | **deux** chiffres : 2 864 226,45 € HT **et** 3 437 071,65 € TTC |
+| « CA » | **su** (description de `mnt_ht`) | **deviné** — dans le doute, il calcule les deux |
+| « client actif » | **su** (`statut='A'`) | **supposé** — il infère que « A » = « Actif » |
+| Le filtre métier | `WHERE statut = 'A'` appliqué | **pas appliqué** — il fait un `GROUP BY statut` et te laisse trancher |
+
+Ses propres mots (verbatim) :
+
+> *"I will proceed with the **assumption** that 'active clients' exclusively refers to
+> those with `statut = 'A'` […] I intend to clearly state this **assumption** […]"*
+
+### La vraie leçon (plus nuancée que « ça marche pas »)
+
+> Le catalogue ne fait pas la différence entre **juste et faux**.
+> Il fait la différence entre **savoir et supposer**.
+
+Trois conséquences concrètes :
+
+1. **L'ambiguïté remonte à l'utilisateur.** Deux chiffres au lieu d'un : c'est à
+   l'humain d'arbitrer HT vs TTC. Dans un rapport automatisé, c'est inexploitable.
+2. **L'hypothèse peut être silencieusement fausse.** Ici « A » = Actif, bravo. Mais si
+   « A » avait voulu dire *Archivé* ou *Annulé*, l'agent aurait produit un chiffre
+   faux — avec la même assurance. Rien ne l'aurait signalé.
+3. **Notre schéma est trop gentil.** `mnt_ht`, `mnt_ttc`, `statut`, `annee`, valeurs
+   `A`/`I`/`P` : des noms français explicites et des valeurs lisibles. Gemini a
+   rétro-conçu le sens. **Sur un vrai schéma BI** (`cust_st`, `mt_1`, `flag_3`, codes
+   `1`/`2`/`9`), il n'a plus rien à quoi se raccrocher — et là, il invente.
+
+C'est donc un argument **plus solide** que « sans catalogue ça plante » : le catalogue
+achète de la **reproductibilité** et de l'**auditabilité**. Sans lui, ta réponse dépend
+d'une devinette qui, un jour, sera fausse sans prévenir.
 
 ## Pièges connus
 
