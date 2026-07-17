@@ -43,7 +43,8 @@ utilisée pour générer son SQL (voir [le run réel](docs/RUN-REEL-2026-07-07.m
 
 | Dossier | Rôle |
 |---|---|
-| [`docs/`](docs/) | La théorie : concepts, architecture, **comment l'agent interagit avec le catalogue**, guide pas-à-pas |
+| [`tutorials/`](tutorials/) | 👉 **Commence ici** — 6 tutoriels pas-à-pas, un dossier = un tutoriel |
+| [`docs/`](docs/) | La théorie : concepts, architecture, **comment l'agent interagit avec le catalogue**, run réel |
 | [`sql/`](sql/) | Le **schéma en étoile** + données de démo + **descriptions** (le catalogue) |
 | [`scripts/`](scripts/) | Scripts `gcloud`/`bq` : dataset, lineage, scans profiling/qualité |
 | [`agent/`](agent/) | Le code Python : lit le catalogue → construit le contexte → crée et interroge l'agent |
@@ -80,12 +81,26 @@ python ask.py "Quel est le CA des clients actifs en 2025 ?"
 Chacune force l'agent à utiliser une description précise du catalogue
 (CA = `SUM(mnt_ht)`, client actif = `statut='A'`, canal = `type_magasin`…).
 
-## À lire dans l'ordre
+## Par où commencer
+
+**Tu veux faire ?** → les [tutoriels](tutorials/), dans l'ordre :
+
+| # | Tutoriel | Durée |
+|---|---|---|
+| 00 | [Prérequis & mise en route](tutorials/00-prerequis/) | 10 min |
+| 01 | [Le schéma en étoile + les descriptions](tutorials/01-schema-etoile/) | 10 min |
+| 02 | [Dataplex : lineage, profiling, qualité](tutorials/02-dataplex-scans/) | 15 min |
+| 03 | [Du catalogue au contexte de l'agent](tutorials/03-contexte-agent/) ⭐ | 10 min |
+| 04 | [L'agent conversationnel](tutorials/04-agent-conversationnel/) | 15 min |
+| 05 | [Maintenir le catalogue (et nettoyer)](tutorials/05-maintenir-le-catalogue/) | 10 min |
+
+**Tu veux comprendre ?** → la théorie :
 
 1. [docs/01-concepts.md](docs/01-concepts.md) — c'est quoi Dataplex, vraiment
 2. [docs/02-architecture.md](docs/02-architecture.md) — le flux de bout en bout
 3. [docs/03-agent-catalog-interaction.md](docs/03-agent-catalog-interaction.md) — **comment l'agent lit le catalogue**
-4. [docs/04-poc-guide.md](docs/04-poc-guide.md) — pas-à-pas + **quelles captures d'écran prendre**
+4. [docs/RUN-REEL-2026-07-07.md](docs/RUN-REEL-2026-07-07.md) — le run réel, pièges compris
+5. [docs/04-poc-guide.md](docs/04-poc-guide.md) — quelles captures d'écran prendre
 
 > ✅ **POC exécuté en vrai** le 7 juillet 2026 sur le projet `quittes-83211`
 > (BigQuery + Dataplex + agent Gemini). Résultats réels — SQL généré par l'agent,
