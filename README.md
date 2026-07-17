@@ -30,6 +30,15 @@ pour transformer une question en français en **SQL correct**.
    « Quel est le CA des clients actifs en 2025 ? »  →  SQL  →  réponse
 ```
 
+### Le catalogue, vu dans BigQuery (capture réelle)
+
+![Schéma de fact_ventes avec la colonne Description remplie](assets/screenshots/01-bigquery-schema-descriptions.png)
+
+*Capture réelle du projet `quittes-83211`. La colonne **Description** est ce que l'agent
+lit pour comprendre les tables — sans elle, il est aveugle. Ici `mnt_ht` porte la
+description « … LE CHIFFRE D'AFFAIRES (CA) = SUM(mnt_ht) », que l'agent a effectivement
+utilisée pour générer son SQL (voir [le run réel](docs/RUN-REEL-2026-07-07.md)).*
+
 ## Contenu du repo
 
 | Dossier | Rôle |

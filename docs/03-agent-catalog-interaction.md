@@ -33,6 +33,12 @@ WHERE table_name = 'fact_ventes';
 Si `description` est vide → l'agent est aveugle. (C'est exactement ce que
 lit notre `agent/build_context.py`.)
 
+![Colonne Description de fact_ventes dans la console BigQuery](../assets/screenshots/01-bigquery-schema-descriptions.png)
+
+*Capture réelle : la colonne **Description** sur `fact_ventes`. Ces textes vivent sur
+les métadonnées BigQuery (Dataplex est la surface qui les gère et les écrit) — c'est
+le **canal fiable** décrit ci-dessous.*
+
 ## Ce qui se passe à CHAQUE question
 
 1. **Sélection des tables** — s'il y en a beaucoup, une étape de *retrieval*
