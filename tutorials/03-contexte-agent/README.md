@@ -81,6 +81,13 @@ Tu es un analyste de données retail. …
 ## dim_client — Dimension CLIENT. Une ligne par client. …
 ```
 
+![Sortie de build_context.py : catalogue complet et system_instruction générée](../../assets/screenshots/04-build-context.png)
+
+*Capture réelle. On voit le catalogue être lu (« ✅ Toutes les colonnes ont une
+description ») puis transformé en `system_instruction` : règles métier, jointures, et
+les descriptions issues du catalogue. **C'est le moment exact où Dataplex devient le
+cerveau de l'agent.***
+
 > ⚠️ Si tu vois `⚠️ N colonnes SANS description`, **reviens au tutoriel 01**. Chaque
 > colonne non décrite est un angle mort pour l'agent.
 

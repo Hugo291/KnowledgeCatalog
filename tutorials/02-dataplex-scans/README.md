@@ -74,15 +74,45 @@ Les jobs tournent **en asynchrone** : compte ~2 min avant d'avoir les résultats
 
 ## Vérifier
 
+### 1. Les deux scans sont passés
+
 Console → **Dataplex (« Knowledge Catalog ») › Govern › Data profiling & quality** :
 
 ![Scans Dataplex](../../assets/screenshots/02-dataplex-scans.png)
 
-Tu dois voir tes scans avec `Succeeded` (profiling) et `Passed` (qualité). En cliquant
-sur le scan de qualité : `Records scanned: 5000` et Uniqueness / Completeness / Validity
-toutes **Passed**.
+`profile-fact-ventes` → **Succeeded** et `quality-fact-ventes` → **Passed**.
 
-Le lineage se voit sur `fact_ventes > onglet Lineage` dans BigQuery.
+### 2. Le détail de la qualité
+
+Clique sur `quality-fact-ventes` :
+
+![Détail du scan de qualité](../../assets/screenshots/05-dataplex-quality.png)
+
+`Records scanned: 5000`, `Status: Passed`, et les 3 dimensions **Uniqueness /
+Completeness / Validity** toutes vertes. Ce sont exactement les règles de `dq_spec.yaml`.
+
+### 3. Le détail du profiling
+
+Clique sur `profile-fact-ventes` → **View results** pour les stats par colonne :
+
+![Détail du scan de profiling](../../assets/screenshots/06-dataplex-profiling.png)
+
+L'historique garde les **7 derniers jobs** — pratique pour voir dériver la qualité dans
+le temps.
+
+### 4. Le lineage — la « doc du code », gratuite
+
+`fact_ventes` → onglet **Lineage** dans BigQuery :
+
+![Graphe de lineage dim_produit vers fact_ventes](../../assets/screenshots/07-lineage.png)
+
+👉 **Personne n'a écrit ce graphe.** Il vient du `INSERT … SELECT … JOIN dim_produit` du
+[tutoriel 01](../01-schema-etoile/) : Dataplex a observé le job BigQuery et en a déduit
+que `dim_produit` alimente `fact_ventes`. C'est *ça*, « documenter le code
+automatiquement ».
+
+> ⏳ Le graphe peut rester vide quelques minutes après le chargement — le lineage est
+> asynchrone. Sur ce POC, l'amont n'est apparu qu'après coup.
 
 ## Pièges connus
 
