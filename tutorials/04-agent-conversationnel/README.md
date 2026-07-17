@@ -69,6 +69,23 @@ En 2025, le chiffre d'affaires total réalisé auprès des clients actifs s'él�
 **2 864 226,45 € HT**. …
 ```
 
+![L'agent répond dans Cloud Shell : SQL généré + réponse en français](../../assets/screenshots/03-agent-reponse.png)
+
+*Capture réelle (re-run du 17 juillet 2026). On y voit le SQL généré par l'agent puis sa
+réponse : « le Chiffre d'Affaires (CA) réalisé par les clients actifs s'élève à
+**2 864 226,45 €** HT ».*
+
+> 💡 **Détail instructif** : ce re-run, 10 jours après le premier, redonne **exactement
+> le même montant** — mais écrit le SQL autrement (alias `ventes`/`client`/`calendrier`,
+> et `LOWER(client.statut) = 'a'` au lieu de `statut = 'A'`). L'agent n'est **pas
+> déterministe dans la forme**, mais le catalogue le contraint sur le **sens** : bonne
+> colonne, bon filtre, bon résultat. C'est exactement ce qu'on attend d'un bon contexte.
+>
+> Amusant : dans son raisonnement interne (en anglais), il traduit « CA » par *« Customer
+> Acquisition cost »* — mais son SQL et sa réponse française restent justes, parce que la
+> **description de `mnt_ht`** lui donne la formule sans ambiguïté. La description ancre
+> le modèle même quand sa prose dérive.
+
 ## 🔍 La preuve — l'agent cite le catalogue
 
 Dans son raisonnement, l'agent a écrit (verbatim) :
